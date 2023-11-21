@@ -19,6 +19,22 @@ constructor(address _tokenA, address _tokenB) {
         tokenA = IERC20(_tokenA);
         tokenB = IERC20(_tokenB);
     }
+function swapTokens(uint256 _amountA, uint256 _amountB) external {
+        require(_amountA > 0 && _amountB > 0, "Amounts must be greater than 0");
 
+        // Transfer tokens from the sender to the contract
+        tokenA.safeTransferFrom(msg.sender, address(this), _amountA);
+        tokenB.safeTransferFrom(msg.sender, address(this), _amountB);
+
+        // Swap logic can be customized based on the requirements
+        // For simplicity, let's assume a 1:1 swap ratio
+        // Additional logic for more complex swaps can be implemented here
+
+        // Transfer swapped tokens back to the sender
+        tokenA.safeTransfer(msg.sender, _amountB);
+        tokenB.safeTransfer(msg.sender, _amountA);
+
+        emit TokensSwapped(msg.sender, _amountA, _amountB);
+    }
 }
 
