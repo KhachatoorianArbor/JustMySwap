@@ -36,5 +36,11 @@ function swapTokens(uint256 _amountA, uint256 _amountB) external {
 
         emit TokensSwapped(msg.sender, _amountA, _amountB);
     }
+function withdrawTokens(address _token, uint256 _amount) external onlyOwner {
+        require(_token != address(0), "Invalid token address");
+        require(_amount > 0, "Amount must be greater than 0");
+
+        IERC20(_token).safeTransfer(owner(), _amount);
+    }
 }
 
