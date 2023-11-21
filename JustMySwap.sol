@@ -12,7 +12,13 @@ contract TokenSwap is Ownable {
     IERC20 public tokenB;
 
     event TokensSwapped(address indexed sender, uint256 amountA, uint256 amountB);
+constructor(address _tokenA, address _tokenB) {
+        require(_tokenA != address(0), "Invalid tokenA address");
+        require(_tokenB != address(0), "Invalid tokenB address");
 
+        tokenA = IERC20(_tokenA);
+        tokenB = IERC20(_tokenB);
+    }
 
 }
 
